@@ -31,6 +31,11 @@ func (h *HttpServer) Shutdown(ctx context.Context) error {
 func (h *HttpServer) Register() {
 	h.server.Use(middleware.CORS())
 	h.server.Use(middleware.BodyLimit("10M"))
-	_ = h.server.Group("/api/v1/teams")
+
+	// controller := controller.New(h.useCase)
+
+	// api := h.server.Group("/api/v1/teams")
+
+	// api.GET("/", controller)
 
 }
