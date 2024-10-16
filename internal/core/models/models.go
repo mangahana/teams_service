@@ -7,7 +7,7 @@ type Session struct {
 }
 
 type OneTeam struct {
-	Id          int     `json:"id"`
+	ID          int     `json:"id"`
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Photo       *string `json:"photo"`

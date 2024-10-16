@@ -29,3 +29,17 @@ func BadRequest() *customError {
 		Message: "invalid input data",
 	}
 }
+
+func NotFound() *customError {
+	return &customError{
+		Code:    NOT_FOUND,
+		Message: "not found",
+	}
+}
+
+func InternalServerError() *customError {
+	return &customError{
+		Code:    INTERNAL_SERVER_ERROR,
+		Message: "Internal Server Error",
+	}
+}

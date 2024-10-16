@@ -11,7 +11,9 @@ import (
 type IRepo interface {
 	Add(c context.Context, dto *dto.AddTeam) error
 
+	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetTypeByID(c context.Context, typeId int) (models.TeamType, error)
+
 	TeamsCountForOwner(c context.Context, ownerID int) (int, error)
 }
 
