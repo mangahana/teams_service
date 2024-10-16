@@ -1,5 +1,11 @@
 package models
 
+type Session struct {
+	UserID      int      `json:"user_id"`
+	IsBanned    bool     `json:"is_banned"`
+	Permissions []string `json:"permissions"`
+}
+
 type OneTeam struct {
 	Id          int     `json:"id"`
 	Name        string  `json:"name"`

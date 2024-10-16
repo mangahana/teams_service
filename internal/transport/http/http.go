@@ -3,20 +3,23 @@ package http
 import (
 	"context"
 	"teams_service/internal/application"
+	authservice "teams_service/internal/infrastructure/auth_service"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 type server struct {
-	server  *echo.Echo
-	useCase application.UseCase
+	server      *echo.Echo
+	useCase     application.UseCase
+	authService *authservice.AuthService
 }
 
-func New(useCase application.UseCase) *server {
+func New(useCase application.UseCase, authService *authservice.AuthService) *server {
 	return &server{
-		server:  echo.New(),
-		useCase: useCase,
+		server:      echo.New(),
+		useCase:     useCase,
+		authService: authService,
 	}
 }
 

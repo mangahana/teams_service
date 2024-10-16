@@ -1,8 +1,14 @@
 include .env
 export
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 run:
 	go run ./cmd/main.go
+
+proto_compile:
+	protoc --go_out=. --go_opt=paths=source_relative \
+			--go-grpc_out=. --go-grpc_opt=paths=source_relative \
+			proto/auth/auth.proto
 
 database_up:
 	docker run --name dev-db --rm \

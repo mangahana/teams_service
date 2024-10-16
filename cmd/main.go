@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"teams_service/internal/application"
 	"teams_service/internal/core/configuration"
+	authservice "teams_service/internal/infrastructure/auth_service"
 	"teams_service/internal/infrastructure/postgresql"
 	"teams_service/internal/infrastructure/repository"
 	"teams_service/internal/transport/http"
@@ -25,10 +26,15 @@ func main() {
 		log.Fatal(err)
 	}
 
+	authService, err := authservice.New(cfg.Services.AuthServiceSocket)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	repo := repository.New(db)
 	useCase := application.New(repo)
 
-	httpServer := http.New(useCase)
+	httpServer := http.New(useCase, authService)
 	httpServer.Register()
 
 	go httpServer.ListenAndServe(cfg.Server.HttpSocket)

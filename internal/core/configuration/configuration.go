@@ -9,14 +9,19 @@ type DBConfig struct {
 	Name string `env:"DB_NAME"`
 }
 
+type Services struct {
+	AuthServiceSocket string `env:"AUTH_SERVICE_SOCKET"`
+}
+
 type ServerConfig struct {
 	HttpSocket string `env:"HTTP_SOCKET"`
 	GrpcSocket string `env:"GRPC_SOCKET"`
 }
 
 type Config struct {
-	DB     DBConfig
-	Server ServerConfig
+	DB       DBConfig
+	Server   ServerConfig
+	Services Services
 }
 
 func Load() (*Config, error) {
