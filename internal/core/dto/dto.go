@@ -1,8 +1,8 @@
 package dto
 
-type CreateTeam struct {
-	Name    string `json:"name"`
-	TypeId  int    `json:"type_id"`
+type AddTeam struct {
+	Name    string `json:"name" validate:"required,min=3,max=32"`
+	TypeId  int    `json:"type_id" validate:"required,number"`
 	OwnerId int    `json:"owner_id"`
 }
 

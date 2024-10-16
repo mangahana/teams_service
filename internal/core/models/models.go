@@ -19,3 +19,8 @@ type Member struct {
 	UserName  string `json:"user_name"`
 	UserPhoto string `json:"user_photo"`
 }
+
+type TeamType struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}

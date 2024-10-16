@@ -1,6 +1,6 @@
 include .env
 export
-export PATH="$PATH:$(go env GOPATH)/bin"
+
 
 run:
 	go run ./cmd/main.go

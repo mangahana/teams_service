@@ -1,12 +1,14 @@
-package authservice
+package auth_service
 
 import (
+	pb "teams_service/proto/auth"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
 type AuthService struct {
-	client *grpc.ClientConn
+	client pb.UserClient
 }
 
 func New(socket string) (*AuthService, error) {
@@ -18,10 +20,6 @@ func New(socket string) (*AuthService, error) {
 	}
 
 	return &AuthService{
-		client: conn,
+		client: pb.NewUserClient(conn),
 	}, nil
-}
-
-func (a *AuthService) Close() error {
-	return a.client.Close()
 }

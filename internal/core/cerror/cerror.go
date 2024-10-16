@@ -22,3 +22,10 @@ func New(code, message string) *customError {
 		Message: message,
 	}
 }
+
+func BadRequest() *customError {
+	return &customError{
+		Code:    BAD_REQUEST,
+		Message: "invalid input data",
+	}
+}

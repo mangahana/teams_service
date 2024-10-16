@@ -1,4 +1,4 @@
-package authservice
+package auth_service
 
 import (
 	"context"
@@ -7,13 +7,11 @@ import (
 )
 
 func (service *AuthService) GetSession(c context.Context, token string) (*models.Session, error) {
-	client := pb.NewUserClient(service.client)
-
 	req := &pb.Request{
 		Token: token,
 	}
 
-	resp, err := client.GetSession(c, req)
+	resp, err := service.client.GetSession(c, req)
 	if err != nil {
 		return nil, err
 	}
