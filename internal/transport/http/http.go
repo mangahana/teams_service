@@ -8,27 +8,27 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-type HttpServer struct {
+type server struct {
 	server  *echo.Echo
 	useCase application.UseCase
 }
 
-func New(useCase application.UseCase) *HttpServer {
-	return &HttpServer{
+func New(useCase application.UseCase) *server {
+	return &server{
 		server:  echo.New(),
 		useCase: useCase,
 	}
 }
 
-func (h *HttpServer) ListenAndServe(socket string) {
+func (h *server) ListenAndServe(socket string) {
 	h.server.Start(socket)
 }
 
-func (h *HttpServer) Shutdown(ctx context.Context) error {
+func (h *server) Shutdown(ctx context.Context) error {
 	return h.server.Shutdown(ctx)
 }
 
-func (h *HttpServer) Register() {
+func (h *server) Register() {
 	h.server.Use(middleware.CORS())
 	h.server.Use(middleware.BodyLimit("10M"))
 
