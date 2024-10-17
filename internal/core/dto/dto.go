@@ -18,3 +18,10 @@ type UploadPhoto struct {
 	TeamId   int    `json:"team_id" validate:"required,number"`
 	Photo    string `json:"photo" validate:"required,base64"`
 }
+
+type UpdateMemberPermissions struct {
+	OwnerId     int
+	TeamId      int      `json:"team_id"`
+	MemberId    int      `json:"member_id"`
+	Permissions []string `json:"permissions"`
+}

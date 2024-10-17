@@ -47,4 +47,5 @@ func (h *server) Register() {
 	private.POST("/add", controller.Add)
 	private.PATCH("/update", controller.Update)
 	private.PATCH("/upload_photo", controller.UploadPhoto)
+	private.PATCH("/update_member_permissions", controller.UploadPhoto)
 }

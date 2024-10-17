@@ -20,6 +20,7 @@ type IRepo interface {
 
 	Update(c context.Context, dto *dto.Update) error
 	UpdatePhoto(c context.Context, teamId int, photo string) error
+	UpdatePermissions(c context.Context, dto *dto.UpdateMemberPermissions) error
 }
 
 type repo struct {
