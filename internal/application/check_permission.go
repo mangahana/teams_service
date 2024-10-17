@@ -2,7 +2,6 @@ package application
 
 import (
 	"context"
-	"log"
 	"slices"
 	"teams_service/internal/core/cerror"
 )
@@ -10,7 +9,6 @@ import (
 const UPDATE_TEAM_PERMISSION = "update_team"
 
 func (u *useCase) checkPermission(c context.Context, teamId, memberId int) error {
-	log.Println(teamId)
 	team, err := u.repo.GetOne(c, teamId)
 	if err != nil {
 		return err
