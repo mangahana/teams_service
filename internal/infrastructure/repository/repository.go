@@ -19,6 +19,7 @@ type IRepo interface {
 	TeamsCountForOwner(c context.Context, ownerID int) (int, error)
 
 	Update(c context.Context, dto *dto.Update) error
+	UpdatePhoto(c context.Context, teamId int, photo string) error
 }
 
 type repo struct {

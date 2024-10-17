@@ -18,10 +18,19 @@ type ServerConfig struct {
 	GrpcSocket string `env:"GRPC_SOCKET"`
 }
 
+type S3Config struct {
+	Endpoint        string `env:"S3_ENDPOINT"`
+	AccessKeyID     string `env:"S3_ACCESS_KEY_ID"`
+	SecretAccessKey string `env:"S3_SECRET_ACCESS_KEY"`
+	BucketName      string `env:"S3_BUCKET_NAME"`
+	UseSSL          bool   `env:"S3_USE_SSL"`
+}
+
 type Config struct {
 	DB       DBConfig
 	Server   ServerConfig
 	Services Services
+	S3       S3Config
 }
 
 func Load() (*Config, error) {

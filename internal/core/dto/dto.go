@@ -12,3 +12,9 @@ type Update struct {
 	Name        string `json:"name" validate:"required,min=3,max=32"`
 	Description string `json:"description"`
 }
+
+type UploadPhoto struct {
+	MemberId int
+	TeamId   int    `json:"team_id" validate:"required,number"`
+	Photo    string `json:"photo" validate:"required,base64"`
+}

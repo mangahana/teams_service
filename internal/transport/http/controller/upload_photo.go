@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (h *controller) Update(c echo.Context) error {
-	var dto *dto.Update
+func (h *controller) UploadPhoto(c echo.Context) error {
+	var dto dto.UploadPhoto
 	if err := c.Bind(&dto); err != nil {
 		return c.JSON(400, cerror.BadRequest())
 	}
@@ -19,10 +19,10 @@ func (h *controller) Update(c echo.Context) error {
 
 	dto.MemberId = h.getSession(c).UserID
 
-	err := h.useCase.Update(c.Request().Context(), dto)
+	filename, err := h.useCase.UploadPhoto(c.Request().Context(), &dto)
 	if err != nil {
 		return c.JSON(400, err)
 	}
 
-	return c.String(200, "OK")
+	return c.String(200, filename)
 }

@@ -11,6 +11,7 @@ import (
 	authservice "teams_service/internal/infrastructure/auth_service"
 	"teams_service/internal/infrastructure/postgresql"
 	"teams_service/internal/infrastructure/repository"
+	"teams_service/internal/infrastructure/s3"
 	"teams_service/internal/transport/http"
 	"time"
 )
@@ -31,8 +32,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	s3Client, err := s3.New(&cfg.S3)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	repo := repository.New(db)
-	useCase := application.New(repo)
+	useCase := application.New(repo, s3Client)
 
 	httpServer := http.New(useCase, authService)
 	httpServer.Register()
