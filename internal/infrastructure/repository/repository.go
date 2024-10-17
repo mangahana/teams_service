@@ -13,6 +13,7 @@ type IRepo interface {
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetTypeByID(c context.Context, typeId int) (models.TeamType, error)
+	GetMembers(c context.Context, teamID int) ([]models.Member, error)
 
 	TeamsCountForOwner(c context.Context, ownerID int) (int, error)
 }

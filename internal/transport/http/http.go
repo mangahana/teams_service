@@ -41,6 +41,7 @@ func (h *server) Register() {
 	api := h.server.Group("/api/v1/teams")
 
 	api.GET("", controller.GetOne)
+	api.GET("/members", controller.GetMembers)
 
 	private := api.Group("", h.Authenticate)
 	private.POST("/add", controller.Add)
