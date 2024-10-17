@@ -12,6 +12,8 @@ type UseCase interface {
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetMembers(c context.Context, teamID int) ([]models.Member, error)
+
+	Update(c context.Context, dto *dto.Update) error
 }
 
 type useCase struct {

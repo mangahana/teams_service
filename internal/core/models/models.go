@@ -12,12 +12,14 @@ type OneTeam struct {
 	Description string  `json:"description"`
 	Photo       *string `json:"photo"`
 	IsVerified  bool    `json:"is_verified"`
+	OwnerID     int     `json:"owner_id"`
 }
 
 type Member struct {
-	UserId    int    `json:"user_id"`
-	UserName  string `json:"user_name"`
-	UserPhoto string `json:"user_photo"`
+	Permissions []string `json:"-"`
+	UserId      int      `json:"user_id"`
+	UserName    string   `json:"user_name"`
+	UserPhoto   string   `json:"user_photo"`
 }
 
 type TeamType struct {

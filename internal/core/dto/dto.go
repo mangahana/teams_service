@@ -7,4 +7,8 @@ type AddTeam struct {
 }
 
 type Update struct {
+	MemberId    int
+	TeamId      int    `json:"team_id" validate:"required,number"`
+	Name        string `json:"name" validate:"required,min=3,max=32"`
+	Description string `json:"description"`
 }

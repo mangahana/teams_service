@@ -43,3 +43,10 @@ func InternalServerError() *customError {
 		Message: "Internal Server Error",
 	}
 }
+
+func Forbidden() *customError {
+	return &customError{
+		Code:    FORBIDDEN,
+		Message: "Forbidden",
+	}
+}

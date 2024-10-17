@@ -45,4 +45,5 @@ func (h *server) Register() {
 
 	private := api.Group("", h.Authenticate)
 	private.POST("/add", controller.Add)
+	private.PATCH("/update", controller.Update)
 }

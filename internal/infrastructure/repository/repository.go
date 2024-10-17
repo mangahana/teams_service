@@ -13,9 +13,12 @@ type IRepo interface {
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetTypeByID(c context.Context, typeId int) (models.TeamType, error)
+	GetMember(c context.Context, teamId, memberId int) (models.Member, error)
 	GetMembers(c context.Context, teamID int) ([]models.Member, error)
 
 	TeamsCountForOwner(c context.Context, ownerID int) (int, error)
+
+	Update(c context.Context, dto *dto.Update) error
 }
 
 type repo struct {
