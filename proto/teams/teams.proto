@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "./teams_proto";
+
+package teams_proto;
+
+service Teams {
+  rpc GetOne(Request) returns (Response) {}
+}
+
+message Request {
+  int32 id = 1;
+}
+
+message Response {
+  int32 id = 1;
+  string name = 2;
+  string photo = 3;
+  int32 owner_id = 4;
+}

@@ -6,13 +6,15 @@ import (
 	"teams_service/internal/core/dto"
 )
 
+const teamsLimitForUser = 5
+
 func (u *useCase) Add(c context.Context, dto *dto.AddTeam) error {
 	teamsCountByOwnerID, err := u.repo.TeamsCountForOwner(c, dto.OwnerId)
 	if err != nil {
 		return err
 	}
 
-	if teamsCountByOwnerID >= 10 {
+	if teamsCountByOwnerID >= teamsLimitForUser {
 		return cerror.New(cerror.TEAMS_LIMIT, "too many teams created for the user")
 	}
 

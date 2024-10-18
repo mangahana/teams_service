@@ -12,6 +12,7 @@ import (
 	"teams_service/internal/infrastructure/postgresql"
 	"teams_service/internal/infrastructure/repository"
 	"teams_service/internal/infrastructure/s3"
+	"teams_service/internal/transport/grpc"
 	"teams_service/internal/transport/http"
 	"time"
 )
@@ -44,6 +45,9 @@ func main() {
 	httpServer.Register()
 
 	go httpServer.ListenAndServe(cfg.Server.HttpSocket)
+
+	grpsServer := grpc.New(useCase)
+	go grpsServer.Run()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
