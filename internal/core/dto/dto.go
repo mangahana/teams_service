@@ -21,7 +21,13 @@ type UploadPhoto struct {
 
 type UpdateMemberPermissions struct {
 	OwnerId     int
-	TeamId      int      `json:"team_id"`
-	MemberId    int      `json:"member_id"`
-	Permissions []string `json:"permissions"`
+	TeamId      int      `json:"team_id" validate:"required,number"`
+	MemberId    int      `json:"member_id" validate:"required,number"`
+	Permissions []string `json:"permissions" validate:"required"`
+}
+
+type CreateInvite struct {
+	OwnerId int
+	TeamId  int `json:"team_id" validate:"required,number"`
+	UserId  int `json:"user_id" validate:"required,number"`
 }

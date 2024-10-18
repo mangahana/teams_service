@@ -43,9 +43,14 @@ func (h *server) Register() {
 	api.GET("", controller.GetOne)
 	api.GET("/members", controller.GetMembers)
 
-	private := api.Group("", h.Authenticate)
-	private.POST("/add", controller.Add)
-	private.PATCH("/update", controller.Update)
-	private.PATCH("/upload_photo", controller.UploadPhoto)
-	private.PATCH("/update_member_permissions", controller.UploadPhoto)
+	{
+		private := api.Group("", h.Authenticate)
+
+		private.POST("/add", controller.Add)
+		private.POST("/invite", controller.CreateInvite)
+
+		private.PATCH("/update", controller.Update)
+		private.PATCH("/upload_photo", controller.UploadPhoto)
+		private.PATCH("/update_member_permissions", controller.UploadPhoto)
+	}
 }

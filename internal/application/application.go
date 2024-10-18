@@ -11,6 +11,7 @@ import (
 
 type UseCase interface {
 	Add(c context.Context, dto *dto.AddTeam) error
+	CreateInvite(c context.Context, dto *dto.CreateInvite) error
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetMembers(c context.Context, teamID int) ([]models.Member, error)

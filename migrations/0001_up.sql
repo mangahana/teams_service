@@ -27,6 +27,7 @@ CREATE TABLE members (
   user_name   TEXT NOT NULL,
   user_photo  TEXT
 );
+CREATE UNIQUE INDEX members_unique_key ON members (team_id, user_id);
 
 
 CREATE TABLE permissions (
@@ -38,3 +39,12 @@ INSERT INTO permissions (slug, name) VALUES
 ('remove_chapter', 'Тарау өшіру'),
 ('update_team', 'Топ ақпаратын өзгерту');
 
+
+
+
+CREATE TABLE invites (
+  team_id    INTEGER NOT NULL,
+  user_id    INTEGER NOT NULL,
+  created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX invites_unique_key ON invites (team_id, user_id);

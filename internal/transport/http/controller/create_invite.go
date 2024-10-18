@@ -1,14 +1,15 @@
 package controller
 
 import (
+	"log"
 	"teams_service/internal/core/cerror"
 	"teams_service/internal/core/dto"
 
 	"github.com/labstack/echo/v4"
 )
 
-func (h *controller) UpdateMemberPermissions(c echo.Context) error {
-	var dto *dto.UpdateMemberPermissions
+func (h *controller) CreateInvite(c echo.Context) error {
+	var dto *dto.CreateInvite
 	if err := c.Bind(&dto); err != nil {
 		return c.JSON(400, cerror.BadRequest())
 	}
@@ -19,8 +20,9 @@ func (h *controller) UpdateMemberPermissions(c echo.Context) error {
 
 	dto.OwnerId = h.getSession(c).UserID
 
-	err := h.useCase.UpdateMemberPermissions(c.Request().Context(), dto)
+	err := h.useCase.CreateInvite(c.Request().Context(), dto)
 	if err != nil {
+		log.Println(err)
 		return c.JSON(400, err)
 	}
 

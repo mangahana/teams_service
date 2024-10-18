@@ -10,6 +10,7 @@ import (
 
 type IRepo interface {
 	Add(c context.Context, dto *dto.AddTeam) error
+	CreateInvite(c context.Context, dto *dto.CreateInvite) error
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetTypeByID(c context.Context, typeId int) (models.TeamType, error)
