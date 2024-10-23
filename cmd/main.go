@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"teams_service/internal/application"
 	"teams_service/internal/core/configuration"
-	authservice "teams_service/internal/infrastructure/auth_service"
+	"teams_service/internal/infrastructure/authorization"
 	"teams_service/internal/infrastructure/postgresql"
 	"teams_service/internal/infrastructure/repository"
 	"teams_service/internal/infrastructure/s3"
@@ -28,7 +28,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	authService, err := authservice.New(cfg.Services.AuthServiceSocket)
+	authService, err := authorization.New(cfg.Services.AuthServiceSocket)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,7 +47,7 @@ func main() {
 	go httpServer.ListenAndServe(cfg.Server.HttpSocket)
 
 	grpsServer := grpc.New(useCase)
-	go grpsServer.Run()
+	go grpsServer.Run(cfg.Server.GrpcSocket)
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)

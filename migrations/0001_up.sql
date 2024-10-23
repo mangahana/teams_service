@@ -2,8 +2,8 @@ CREATE TABLE teams (
   id            SERIAL PRIMARY KEY,
   name          VARCHAR(30) NOT NULL,
   description   TEXT NOT NULL DEFAULT '',
-  photo         TEXT,
-  owner_id INTEGER NOT NULL,
+  photo         TEXT NOT NULL DEFAULT '',
+  owner_id      INTEGER NOT NULL,
   type_id       INTEGER NOT NULL,
   is_moderated  BOOLEAN NOT NULL DEFAULT FALSE,
   is_trusted    BOOLEAN NOT NULL DEFAULT FALSE,
@@ -21,11 +21,10 @@ INSERT INTO types (name) VALUES ('Автор'), ('Баспа'), ('Аударма
 
 CREATE TABLE members (
   team_id     INTEGER NOT NULL,
-  permissions VARCHAR(50)[] NOT NULL DEFAULT '{}',
-
   user_id     INTEGER NOT NULL,
-  user_name   TEXT NOT NULL,
-  user_photo  TEXT
+  username    TEXT NOT NULL,
+  user_photo  TEXT NOT NULL,
+  permissions VARCHAR(50)[] NOT NULL DEFAULT '{}'
 );
 CREATE UNIQUE INDEX members_unique_key ON members (team_id, user_id);
 

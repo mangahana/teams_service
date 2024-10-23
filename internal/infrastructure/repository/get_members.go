@@ -7,7 +7,7 @@ import (
 
 func (r *repo) GetMembers(c context.Context, teamID int) ([]models.Member, error) {
 	var output []models.Member
-	sql := "SELECT user_id, user_name, user_photo FROM members WHERE team_id = $1;"
+	sql := "SELECT user_id, username, user_photo FROM members WHERE team_id = $1;"
 
 	rows, err := r.db.Query(c, sql, teamID)
 	if err != nil {
@@ -16,7 +16,7 @@ func (r *repo) GetMembers(c context.Context, teamID int) ([]models.Member, error
 
 	for rows.Next() {
 		var member models.Member
-		if err := rows.Scan(&member.UserId, &member.UserName, &member.UserPhoto); err != nil {
+		if err := rows.Scan(&member.UserID, &member.Username, &member.UserPhoto); err != nil {
 			return output, err
 		}
 		output = append(output, member)

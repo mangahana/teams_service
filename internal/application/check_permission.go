@@ -6,9 +6,7 @@ import (
 	"teams_service/internal/core/cerror"
 )
 
-const UPDATE_TEAM_PERMISSION = "update_team"
-
-func (u *useCase) checkPermission(c context.Context, teamId, memberId int) error {
+func (u *useCase) checkPermission(c context.Context, teamId, memberId int, permission string) error {
 	team, err := u.repo.GetOne(c, teamId)
 	if err != nil {
 		return err
@@ -20,7 +18,7 @@ func (u *useCase) checkPermission(c context.Context, teamId, memberId int) error
 			return err
 		}
 
-		if !slices.Contains(member.Permissions, UPDATE_TEAM_PERMISSION) {
+		if !slices.Contains(member.Permissions, permission) {
 			return cerror.Forbidden()
 		}
 	}

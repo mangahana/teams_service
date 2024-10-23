@@ -17,7 +17,7 @@ func (h *controller) UpdateMemberPermissions(c echo.Context) error {
 		return c.JSON(400, cerror.BadRequest())
 	}
 
-	dto.OwnerId = h.getSession(c).UserID
+	dto.OwnerId = h.getUser(c).ID
 
 	err := h.useCase.UpdateMemberPermissions(c.Request().Context(), dto)
 	if err != nil {

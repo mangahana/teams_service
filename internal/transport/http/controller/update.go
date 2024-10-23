@@ -17,9 +17,9 @@ func (h *controller) Update(c echo.Context) error {
 		return c.JSON(400, cerror.BadRequest())
 	}
 
-	dto.MemberId = h.getSession(c).UserID
+	user := h.getUser(c)
 
-	err := h.useCase.Update(c.Request().Context(), dto)
+	err := h.useCase.Update(c.Request().Context(), &user, dto)
 	if err != nil {
 		return c.JSON(400, err)
 	}

@@ -17,11 +17,9 @@ func (h *controller) Add(c echo.Context) error {
 		return c.JSON(400, cerror.BadRequest())
 	}
 
-	session := h.getSession(c)
+	user := h.getUser(c)
 
-	dto.OwnerId = session.UserID
-
-	err := h.useCase.Add(c.Request().Context(), &dto)
+	err := h.useCase.Add(c.Request().Context(), &user, &dto)
 	if err != nil {
 		return c.JSON(400, err)
 	}

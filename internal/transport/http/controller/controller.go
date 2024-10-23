@@ -20,10 +20,10 @@ func New(useCase application.UseCase) *controller {
 	}
 }
 
-func (h *controller) getSession(c echo.Context) models.Session {
-	session, ok := c.Get("user").(models.Session)
+func (h *controller) getUser(c echo.Context) models.User {
+	user, ok := c.Get("user").(models.User)
 	if ok {
-		return session
+		return user
 	}
-	return models.Session{}
+	return models.User{}
 }

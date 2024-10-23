@@ -23,8 +23,8 @@ func New(useCase application.UseCase) *grpcServer {
 	}
 }
 
-func (s *grpcServer) Run() {
-	listener, err := net.Listen("tcp", ":5000")
+func (s *grpcServer) Run(socket string) {
+	listener, err := net.Listen("tcp", socket)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,16 +34,16 @@ func (s *grpcServer) Run() {
 }
 
 func (s *grpcServer) GetOne(ctx context.Context, r *pb.Request) (*pb.Response, error) {
-	log.Println("inc")
 	team, err := s.useCase.GetOne(ctx, int(r.Id))
 	if err != nil {
 		return nil, err
 	}
 
 	return &pb.Response{
-		Id:      int32(team.ID),
-		Name:    team.Name,
-		Photo:   *team.Photo,
-		OwnerId: int32(team.OwnerID),
+		Id:          int32(team.ID),
+		Name:        team.Name,
+		Photo:       team.Photo,
+		IsModerated: team.IsModerated,
+		OwnerId:     int32(team.OwnerID),
 	}, nil
 }

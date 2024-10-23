@@ -17,9 +17,9 @@ func (h *controller) UploadPhoto(c echo.Context) error {
 		return c.JSON(400, cerror.BadRequest())
 	}
 
-	dto.MemberId = h.getSession(c).UserID
+	user := h.getUser(c)
 
-	filename, err := h.useCase.UploadPhoto(c.Request().Context(), &dto)
+	filename, err := h.useCase.UploadPhoto(c.Request().Context(), &user, &dto)
 	if err != nil {
 		return c.JSON(400, err)
 	}

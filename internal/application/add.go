@@ -4,12 +4,13 @@ import (
 	"context"
 	"teams_service/internal/core/cerror"
 	"teams_service/internal/core/dto"
+	"teams_service/internal/core/models"
 )
 
 const teamsLimitForUser = 5
 
-func (u *useCase) Add(c context.Context, dto *dto.AddTeam) error {
-	teamsCountByOwnerID, err := u.repo.TeamsCountForOwner(c, dto.OwnerId)
+func (u *useCase) Add(c context.Context, user *models.User, dto *dto.AddTeam) error {
+	teamsCountByOwnerID, err := u.repo.TeamsCountForOwner(c, user.ID)
 	if err != nil {
 		return err
 	}
@@ -23,5 +24,5 @@ func (u *useCase) Add(c context.Context, dto *dto.AddTeam) error {
 		return err
 	}
 
-	return u.repo.Add(c, dto)
+	return u.repo.Add(c, user, dto)
 }

@@ -3,7 +3,7 @@ package http
 import (
 	"context"
 	"teams_service/internal/application"
-	"teams_service/internal/infrastructure/auth_service"
+	"teams_service/internal/infrastructure"
 	"teams_service/internal/transport/http/controller"
 
 	"github.com/labstack/echo/v4"
@@ -13,10 +13,10 @@ import (
 type server struct {
 	server      *echo.Echo
 	useCase     application.UseCase
-	authService *auth_service.AuthService
+	authService infrastructure.AuthorizationService
 }
 
-func New(useCase application.UseCase, authService *auth_service.AuthService) *server {
+func New(useCase application.UseCase, authService infrastructure.AuthorizationService) *server {
 	return &server{
 		server:      echo.New(),
 		useCase:     useCase,
@@ -50,7 +50,7 @@ func (h *server) Register() {
 		private.POST("/invite", controller.CreateInvite)
 
 		private.PATCH("/update", controller.Update)
-		private.PATCH("/upload_photo", controller.UploadPhoto)
+		private.PATCH("/update_photo", controller.UploadPhoto)
 		private.PATCH("/update_member_permissions", controller.UploadPhoto)
 	}
 }
