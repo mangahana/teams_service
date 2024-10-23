@@ -12,6 +12,7 @@ import (
 	"teams_service/internal/infrastructure/postgresql"
 	"teams_service/internal/infrastructure/repository"
 	"teams_service/internal/infrastructure/s3"
+	"teams_service/internal/transport/amqp"
 	"teams_service/internal/transport/grpc"
 	"teams_service/internal/transport/http"
 	"time"
@@ -40,6 +41,14 @@ func main() {
 
 	repo := repository.New(db)
 	useCase := application.New(repo, s3Client)
+
+	amqpTransport, err := amqp.New(&cfg.AMQP, useCase)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := amqpTransport.Setup(); err != nil {
+		log.Fatal(err)
+	}
 
 	httpServer := http.New(useCase, authService)
 	httpServer.Register()

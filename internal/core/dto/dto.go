@@ -28,3 +28,9 @@ type CreateInvite struct {
 	TeamId  int `json:"team_id" validate:"required,number"`
 	UserId  int `json:"user_id" validate:"required,number"`
 }
+
+type UpdateMember struct {
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Photo    string `json:"photo"`
+}

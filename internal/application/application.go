@@ -17,6 +17,7 @@ type UseCase interface {
 	Update(c context.Context, user *models.User, dto *dto.Update) error
 	UploadPhoto(c context.Context, user *models.User, dto *dto.UploadPhoto) (string, error)
 	UpdateMemberPermissions(c context.Context, dto *dto.UpdateMemberPermissions) error
+	UpdateMember(c context.Context, dto *dto.UpdateMember) error
 }
 
 type useCase struct {

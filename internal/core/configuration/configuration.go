@@ -26,11 +26,18 @@ type S3Config struct {
 	UseSSL          bool   `env:"S3_USE_SSL"`
 }
 
+type AMQPConfig struct {
+	Host string `env:"AMQP_HOST"`
+	User string `env:"AMQP_USER"`
+	Pass string `env:"AMQP_PASS"`
+}
+
 type Config struct {
 	DB       DBConfig
 	Server   ServerConfig
 	Services Services
 	S3       S3Config
+	AMQP     AMQPConfig
 }
 
 func Load() (*Config, error) {

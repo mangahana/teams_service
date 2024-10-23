@@ -29,4 +29,5 @@ type Repository interface {
 	Update(c context.Context, dto *dto.Update) error
 	UpdatePhoto(c context.Context, teamId int, photo string) error
 	UpdatePermissions(c context.Context, dto *dto.UpdateMemberPermissions) error
+	UpdateMember(c context.Context, dto *dto.UpdateMember) error
 }
