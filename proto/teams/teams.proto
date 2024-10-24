@@ -5,17 +5,29 @@ option go_package = "./teams_proto";
 package teams_proto;
 
 service Teams {
-  rpc GetOne(Request) returns (Response) {}
+  rpc GetOne(GetOneRequest) returns (GetOneResponse) {}
+  rpc GetMember(GetMemberRequest) returns (GetMemberResponse) {}
 }
 
-message Request {
+message GetOneRequest {
   int32 id = 1;
 }
 
-message Response {
+message GetOneResponse {
   int32 id = 1;
   string name = 2;
   string photo = 3;
   bool is_moderated = 4;
   int32 owner_id = 5;
+}
+
+message GetMemberRequest {
+  int32 team_id = 1;
+  int32 member_id = 2;
+}
+
+message GetMemberResponse {
+  int32 user_id = 1;
+  string username = 2;
+  repeated string permissions = 3;
 }

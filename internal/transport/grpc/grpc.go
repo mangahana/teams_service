@@ -33,13 +33,13 @@ func (s *grpcServer) Run(socket string) {
 	s.server.Serve(listener)
 }
 
-func (s *grpcServer) GetOne(ctx context.Context, r *pb.Request) (*pb.Response, error) {
+func (s *grpcServer) GetOne(ctx context.Context, r *pb.GetOneRequest) (*pb.GetOneResponse, error) {
 	team, err := s.useCase.GetOne(ctx, int(r.Id))
 	if err != nil {
 		return nil, err
 	}
 
-	return &pb.Response{
+	return &pb.GetOneResponse{
 		Id:          int32(team.ID),
 		Name:        team.Name,
 		Photo:       team.Photo,
