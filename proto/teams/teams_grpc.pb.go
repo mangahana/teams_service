@@ -19,14 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Teams_GetOne_FullMethodName = "/teams_proto.Teams/GetOne"
+	Teams_GetOne_FullMethodName    = "/teams_proto.Teams/GetOne"
+	Teams_GetMember_FullMethodName = "/teams_proto.Teams/GetMember"
 )
 
 // TeamsClient is the client API for Teams service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TeamsClient interface {
-	GetOne(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	GetOne(ctx context.Context, in *GetOneRequest, opts ...grpc.CallOption) (*GetOneResponse, error)
+	GetMember(ctx context.Context, in *GetMemberRequest, opts ...grpc.CallOption) (*GetMemberResponse, error)
 }
 
 type teamsClient struct {
@@ -37,10 +39,20 @@ func NewTeamsClient(cc grpc.ClientConnInterface) TeamsClient {
 	return &teamsClient{cc}
 }
 
-func (c *teamsClient) GetOne(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *teamsClient) GetOne(ctx context.Context, in *GetOneRequest, opts ...grpc.CallOption) (*GetOneResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
+	out := new(GetOneResponse)
 	err := c.cc.Invoke(ctx, Teams_GetOne_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *teamsClient) GetMember(ctx context.Context, in *GetMemberRequest, opts ...grpc.CallOption) (*GetMemberResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMemberResponse)
+	err := c.cc.Invoke(ctx, Teams_GetMember_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +63,8 @@ func (c *teamsClient) GetOne(ctx context.Context, in *Request, opts ...grpc.Call
 // All implementations must embed UnimplementedTeamsServer
 // for forward compatibility.
 type TeamsServer interface {
-	GetOne(context.Context, *Request) (*Response, error)
+	GetOne(context.Context, *GetOneRequest) (*GetOneResponse, error)
+	GetMember(context.Context, *GetMemberRequest) (*GetMemberResponse, error)
 	mustEmbedUnimplementedTeamsServer()
 }
 
@@ -62,8 +75,11 @@ type TeamsServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTeamsServer struct{}
 
-func (UnimplementedTeamsServer) GetOne(context.Context, *Request) (*Response, error) {
+func (UnimplementedTeamsServer) GetOne(context.Context, *GetOneRequest) (*GetOneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
+}
+func (UnimplementedTeamsServer) GetMember(context.Context, *GetMemberRequest) (*GetMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMember not implemented")
 }
 func (UnimplementedTeamsServer) mustEmbedUnimplementedTeamsServer() {}
 func (UnimplementedTeamsServer) testEmbeddedByValue()               {}
@@ -87,7 +103,7 @@ func RegisterTeamsServer(s grpc.ServiceRegistrar, srv TeamsServer) {
 }
 
 func _Teams_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+	in := new(GetOneRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +115,25 @@ func _Teams_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: Teams_GetOne_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TeamsServer).GetOne(ctx, req.(*Request))
+		return srv.(TeamsServer).GetOne(ctx, req.(*GetOneRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Teams_GetMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TeamsServer).GetMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Teams_GetMember_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TeamsServer).GetMember(ctx, req.(*GetMemberRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -114,6 +148,10 @@ var Teams_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOne",
 			Handler:    _Teams_GetOne_Handler,
+		},
+		{
+			MethodName: "GetMember",
+			Handler:    _Teams_GetMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
