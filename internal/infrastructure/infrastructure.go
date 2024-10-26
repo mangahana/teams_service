@@ -16,13 +16,14 @@ type S3 interface {
 }
 
 type Repository interface {
-	Add(c context.Context, user *models.User, dto *dto.AddTeam) error
+	Add(c context.Context, user *models.User, dto *dto.AddTeam) (int, error)
 	CreateInvite(c context.Context, dto *dto.CreateInvite) error
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetTypeByID(c context.Context, typeId int) (models.TeamType, error)
 	GetMember(c context.Context, teamId, memberId int) (models.Member, error)
 	GetMembers(c context.Context, teamID int) ([]models.Member, error)
+	GetTeamsByMember(c context.Context, memberId int) ([]models.Team, error)
 
 	TeamsCountForOwner(c context.Context, ownerID int) (int, error)
 

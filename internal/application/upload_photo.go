@@ -20,12 +20,6 @@ import (
 
 var allowedMimeTypes = []string{"image/jpeg", "image/png", "image/webp"}
 
-var exts = map[string]string{
-	"image/jpeg": ".jpeg",
-	"image/png":  ".png",
-	"image/webp": ".webp",
-}
-
 func (u *useCase) UploadPhoto(c context.Context, user *models.User, dto *dto.UploadPhoto) (string, error) {
 	err := u.checkPermission(c, dto.TeamId, user.ID, UPDATE_TEAM_PERMISSION)
 	if err != nil {

@@ -8,11 +8,12 @@ import (
 )
 
 type UseCase interface {
-	Add(c context.Context, user *models.User, dto *dto.AddTeam) error
+	Add(c context.Context, user *models.User, dto *dto.AddTeam) (int, error)
 	CreateInvite(c context.Context, dto *dto.CreateInvite) error
 
 	GetOne(c context.Context, teamId int) (models.OneTeam, error)
 	GetMembers(c context.Context, teamID int) ([]models.Member, error)
+	GetMyTeams(c context.Context, user *models.User) ([]models.Team, error)
 
 	Update(c context.Context, user *models.User, dto *dto.Update) error
 	UploadPhoto(c context.Context, user *models.User, dto *dto.UploadPhoto) (string, error)
