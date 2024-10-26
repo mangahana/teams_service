@@ -8,6 +8,12 @@ type User struct {
 	Permissions []string `json:"permissions"`
 }
 
+type Team struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Photo string `json:"photo"`
+}
+
 type OneTeam struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
