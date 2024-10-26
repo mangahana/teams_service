@@ -19,10 +19,10 @@ func (h *controller) Add(c echo.Context) error {
 
 	user := h.getUser(c)
 
-	err := h.useCase.Add(c.Request().Context(), &user, &dto)
+	id, err := h.useCase.Add(c.Request().Context(), &user, &dto)
 	if err != nil {
 		return c.JSON(400, err)
 	}
 
-	return c.String(200, "OK")
+	return c.JSON(200, id)
 }
