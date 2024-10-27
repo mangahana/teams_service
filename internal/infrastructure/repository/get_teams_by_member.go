@@ -8,10 +8,7 @@ import (
 func (r *repo) GetTeamsByMember(c context.Context, memberId int) ([]models.Team, error) {
 	output := []models.Team{}
 
-	sql := `SELECT id, name, photo FROM teams
-					WHERE id = any(
-						(SELECT array_agg(team_id) FROM members WHERE user_id = $1)
-					)`
+	sql := `SELECT id, name, photo FROM teams WHERE id = any(COALESCE((SELECT array_agg(team_id) FROM members WHERE user_id = $1), '{}'));`
 
 	rows, err := r.db.Query(c, sql, memberId)
 	if err != nil {
