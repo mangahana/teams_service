@@ -15,20 +15,21 @@ type Team struct {
 }
 
 type OneTeam struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Photo       string `json:"photo"`
-	IsVerified  bool   `json:"is_verified"`
-	IsModerated bool   `json:"is_moderated"`
-	OwnerID     int    `json:"owner_id"`
+	ID          int      `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Photo       string   `json:"photo"`
+	IsVerified  bool     `json:"is_verified"`
+	IsModerated bool     `json:"is_moderated"`
+	OwnerID     int      `json:"owner_id"`
+	Members     []Member `json:"members"`
 }
 
 type Member struct {
 	Permissions []string `json:"-"`
 	UserID      int      `json:"user_id"`
-	Username    string   `json:"user_name"`
-	UserPhoto   string   `json:"user_photo"`
+	Username    string   `json:"username"`
+	UserPhoto   string   `json:"photo"`
 }
 
 type TeamType struct {
