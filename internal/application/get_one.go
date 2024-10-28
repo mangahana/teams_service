@@ -6,5 +6,17 @@ import (
 )
 
 func (u *useCase) GetOne(c context.Context, teamId int) (models.OneTeam, error) {
-	return u.repo.GetOne(c, teamId)
+	team, err := u.repo.GetOne(c, teamId)
+	if err != nil {
+		return team, err
+	}
+
+	members, err := u.repo.GetMembers(c, team.ID)
+	if err != nil {
+		return team, err
+	}
+
+	team.Members = members
+
+	return team, err
 }
