@@ -47,6 +47,7 @@ func (h *server) Register() {
 		private := api.Group("", h.Authenticate)
 
 		private.GET("/my", controller.MyTeams)
+		private.GET("/membership", controller.Membership)
 
 		private.POST("/add", controller.Add)
 		private.POST("/invite", controller.CreateInvite)
